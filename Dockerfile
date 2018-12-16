@@ -1,4 +1,4 @@
-FROM alpine:3.8 as builder
+FROM alpine:3.8 as build
 
 RUN apk --no-cache add curl=7.61.1-r1 cabal=2.2.0.0-r0 ghc=8.4.3-r0 build-base=0.5-r1 upx=3.94-r0
 RUN curl -sSL https://get.haskellstack.org/ -o /tmp/gethaskell && sh /tmp/gethaskell && rm /tmp/gethaskell 
@@ -12,7 +12,7 @@ RUN stack --no-terminal install --system-ghc --split-objs --executable-stripping
 RUN upx -9 /root/.local/bin/hadolint
 
 FROM alpine:3.8
-COPY --from=builder /root/.local/bin/hadolint /usr/local/bin/hadolint
+COPY --from=build /root/.local/bin/hadolint /usr/local/bin/hadolint
 
 # Build arguments
 ARG BUILD_DATE
