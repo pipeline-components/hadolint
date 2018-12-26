@@ -14,6 +14,7 @@ RUN upx -9 /root/.local/bin/hadolint
 FROM alpine:3.8
 COPY --from=build /root/.local/bin/hadolint /usr/local/bin/hadolint
 
+WORKDIR /code/
 # Build arguments
 ARG BUILD_DATE
 ARG BUILD_REF
