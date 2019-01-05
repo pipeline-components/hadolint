@@ -23,7 +23,7 @@ hadolint:
   stage: linting
   image: pipelinecomponents/hadolint:latest
   script:
-    - hadolint .
+    - hadolint Dockerfile
 ```
 
 ## Versioning
