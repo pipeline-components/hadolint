@@ -1,6 +1,6 @@
-FROM alpine:3.8 as build
+FROM alpine:3.9 as build
 
-RUN apk --no-cache add curl=7.61.1-r1 cabal=2.2.0.0-r0 ghc=8.4.3-r0 build-base=0.5-r1 upx=3.94-r0
+RUN apk --no-cache add curl=7.63.0-r0 cabal=2.2.0.0-r0 ghc=8.4.3-r0 build-base=0.5-r1 upx=3.95-r1
 RUN curl -sSL https://get.haskellstack.org/ -o /tmp/gethaskell && sh /tmp/gethaskell && rm /tmp/gethaskell 
 RUN mkdir -p /app/hadolint
 WORKDIR /app/hadolint
@@ -11,7 +11,7 @@ RUN stack --no-terminal install --system-ghc --split-objs --executable-stripping
 
 RUN upx -9 /root/.local/bin/hadolint
 
-FROM alpine:3.8
+FROM alpine:3.9
 COPY --from=build /root/.local/bin/hadolint /usr/local/bin/hadolint
 
 WORKDIR /code/
