@@ -1,18 +1,17 @@
 FROM alpine:3.9 as build
 
 RUN apk --no-cache add curl=7.64.0-r1 cabal=2.2.0.0-r0 ghc=8.4.3-r0 build-base=0.5-r1 upx=3.95-r1
-RUN curl -sSL https://get.haskellstack.org/ -o /tmp/gethaskell && sh /tmp/gethaskell && rm /tmp/gethaskell 
 RUN mkdir -p /app/hadolint
 WORKDIR /app/hadolint
-RUN curl --location  -o ../hadolint.tar.gz https://github.com/hadolint/hadolint/archive/v1.15.0.tar.gz
-RUN tar --strip 1 -zxvf ../hadolint.tar.gz
-RUN stack --no-terminal build --test --split-objs --executable-stripping  --system-ghc --only-dependencies 
-RUN stack --no-terminal install --system-ghc --split-objs --executable-stripping --ghc-options="-fPIC  "  
 
-RUN upx -9 /root/.local/bin/hadolint
+RUN cabal update
+RUN cabal new-install --jobs  --enable-executable-stripping --enable-optimization=2 --enable-shared --enable-split-sections  --disable-debug-info --constraint="hadolint == 1.16.3" "hadolint"
+RUN if [ -h /root/.cabal/bin/hadolint ] ; then cp --remove-destination "$(readlink -f /root/.cabal/bin/hadolint )" /root/.cabal/bin/hadolint ; fi
+
+RUN upx -9 /root/.cabal/bin/hadolint
 
 FROM alpine:3.9
-COPY --from=build /root/.local/bin/hadolint /usr/local/bin/hadolint
+COPY --from=build /root/.cabal/bin/hadolint /usr/local/bin/hadolint
 
 WORKDIR /code/
 # Build arguments
