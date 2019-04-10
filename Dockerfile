@@ -1,4 +1,4 @@
-FROM alpine:3.9.2 as build
+FROM alpine:3.9.3 as build
 
 RUN apk --no-cache add curl=7.64.0-r1 cabal=2.2.0.0-r0 ghc=8.4.3-r0 build-base=0.5-r1 upx=3.95-r1
 RUN mkdir -p /app/hadolint
@@ -10,7 +10,7 @@ RUN if [ -h /root/.cabal/bin/hadolint ] ; then cp --remove-destination "$(readli
 
 RUN upx -9 /root/.cabal/bin/hadolint
 
-FROM alpine:3.9.2
+FROM alpine:3.9.3
 COPY --from=build /root/.cabal/bin/hadolint /usr/local/bin/hadolint
 
 WORKDIR /code/
