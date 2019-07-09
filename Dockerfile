@@ -1,19 +1,10 @@
-FROM alpine:3.9.4 as build
+FROM hadolint/hadolint:v1.17.0 as hadolint
 
-RUN apk --no-cache add curl=7.64.0-r1 cabal=2.2.0.0-r0 ghc=8.4.3-r0 build-base=0.5-r1 upx=3.95-r1
-RUN mkdir -p /app/hadolint
-WORKDIR /app/hadolint
-
-RUN cabal update
-RUN cabal new-install --jobs  --enable-executable-stripping --enable-optimization=2 --enable-shared --enable-split-sections  --disable-debug-info --constraint="hadolint == 1.16.3" "hadolint"
-RUN if [ -h /root/.cabal/bin/hadolint ] ; then cp --remove-destination "$(readlink -f /root/.cabal/bin/hadolint )" /root/.cabal/bin/hadolint ; fi
-
-RUN upx -9 /root/.cabal/bin/hadolint
-
-FROM alpine:3.9.4
-COPY --from=build /root/.cabal/bin/hadolint /usr/local/bin/hadolint
+FROM alpine:3.10.0
+COPY --from=hadolint /bin/hadolint /usr/local/bin/hadolint
 
 WORKDIR /code/
+
 # Build arguments
 ARG BUILD_DATE
 ARG BUILD_REF
