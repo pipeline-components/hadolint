@@ -8,5 +8,10 @@
   "labels": [
     "Type::Maintenance"
   ],
-  "separateMultipleMajor": true
+  "separateMultipleMajor": true,
+  "docker" : {
+     "digest" : {
+        "enabled" : true
+     }
+  }
 }
