@@ -9,9 +9,5 @@
     "Type::Maintenance"
   ],
   "separateMultipleMajor": true,
-  "docker" : {
-     "digest" : {
-        "enabled" : true
-     }
-  }
+  "pinDigests": true
 }
