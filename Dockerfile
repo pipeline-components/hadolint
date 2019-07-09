@@ -1,4 +1,4 @@
-FROM hadolint/hadolint:v1.17.0 as hadolint
+FROM hadolint/hadolint:v1.17.1 as hadolint
 
 FROM alpine:3.10.0
 COPY --from=hadolint /bin/hadolint /usr/local/bin/hadolint
