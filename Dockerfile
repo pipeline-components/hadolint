@@ -1,6 +1,6 @@
 FROM hadolint/hadolint:v1.17.1@sha256:567dd3eb729d76abe14d315bb5e9133ad587db7acd910e1c55d8d5d57bea4a8f as hadolint
 
-FROM alpine:3.10.0@sha256:ca1c944a4f8486a153024d9965aafbe24f5723c1d5c02f4964c045a16d19dc54
+FROM alpine:3.10.1@sha256:6a92cd1fcdc8d8cdec60f33dda4db2cb1fcdcacf3410a8e05b3741f44a9b5998
 COPY --from=hadolint /bin/hadolint /usr/local/bin/hadolint
 
 WORKDIR /code/
