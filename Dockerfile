@@ -1,6 +1,12 @@
 FROM hadolint/hadolint:v1.17.2@sha256:7d19053c13eca4e377bf36c3a0517509ec23450b50c2041482ede832e217f60e as hadolint
 
+FROM pipelinecomponents/base-entrypoint:0.1.0 as entrypoint
+
 FROM alpine:3.10.2@sha256:acd3ca9941a85e8ed16515bfc5328e4e2f8c128caa72959a58a127b7801ee01f
+COPY --from=entrypoint /entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+ENV DEFAULTCMD hadolint
+
 COPY --from=hadolint /bin/hadolint /usr/local/bin/hadolint
 
 WORKDIR /code/
