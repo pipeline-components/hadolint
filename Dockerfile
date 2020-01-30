@@ -1,4 +1,4 @@
-FROM hadolint/hadolint:v1.17.4@sha256:e1937b12b3d856e21c94ed0db8ff4a274aa5a440bf9cd55c6e281a5ac1d3462e as hadolint
+FROM hadolint/hadolint:v1.17.5@sha256:6f1c3d931a6e321eb32f77aeb7c65e37a067664d195faac3660192cd8cea5c5c as hadolint
 
 FROM pipelinecomponents/base-entrypoint:0.2.0 as entrypoint
 
