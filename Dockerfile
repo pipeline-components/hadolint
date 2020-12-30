@@ -1,6 +1,6 @@
 FROM hadolint/hadolint:v1.19.0 as hadolint
 
-FROM pipelinecomponents/base-entrypoint:0.2.0 as entrypoint
+FROM pipelinecomponents/base-entrypoint:0.3.0 as entrypoint
 
 FROM alpine:3.12.3@sha256:074d3636ebda6dd446d0d00304c4454f468237fdacf08fb0eeac90bdbfa1bac7
 COPY --from=entrypoint /entrypoint.sh /entrypoint.sh
