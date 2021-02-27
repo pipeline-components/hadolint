@@ -21,7 +21,7 @@ The image is for running hadolint, The image is based on alpine:3.8
 ```yaml
 hadolint:
   stage: linting
-  image: pipelinecomponents/hadolint:latest
+  image: registry.gitlab.com/pipeline-components/hadolint:latest
   script:
     - hadolint Dockerfile
 ```
