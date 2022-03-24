@@ -9,6 +9,8 @@ ENV DEFAULTCMD hadolint
 
 COPY --from=hadolint /bin/hadolint /usr/local/bin/hadolint
 
+COPY app /app/
+
 WORKDIR /code/
 
 # Build arguments
