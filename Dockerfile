@@ -1,4 +1,4 @@
-FROM hadolint/hadolint:v2.10.0 as hadolint
+FROM hadolint/hadolint:v2.12.0 as hadolint
 
 FROM pipelinecomponents/base-entrypoint:0.5.0 as entrypoint
 
